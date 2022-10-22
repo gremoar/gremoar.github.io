@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1027248462.js" crossorigin="anonymous"></script>
+    <style>
+        :root
+        {
+         --overlay-color: rgba(24, 39, 51, 0.85);
+         --menu-speed: 0.75s;
+        }
+
+       
+       *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+       }
+       
+       body 
+       {
+        font-family: Arial;
+        margin: 0;
+        line-height: 1.4;
+       }
+       .menu-wrap
+{
+    position: static;
+    top:0;
+    left: 0;
+    z-index: 1;
+}
+
+.menu-wrap .toggler
+{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+}
+.menu-wrap .hamburger
+{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    padding: 1rem;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-wrap .hamburger > div
+{
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+}
+.menu-wrap .hamburger > div:before,
+.menu-wrap .hamburger > div:after
+{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: -10px;
+    width: 100%;
+    height: 2px;
+    background: inherit;
+}
+.menu-wrap .hamburger > div:after
+{
+    top: 10px;
+}
+.menu-wrap .toggler:checked + .hamburger > div
+{
+    transform: rotate(135deg);
+}
+.menu-wrap .toggler:checked + .hamburger > div:before,
+.menu-wrap .toggler:checked + .hamburger > div:after
+{
+    top:0;
+    transform: rotate(90deg);
+}
+.menu-wrap .toggler:checked:hover + .hamburger > div
+{
+    transform: rotate(225deg);
+}
+.menu-wrap .toggler:checked ~ .menu
+{
+    visibility: visible;
+}
+.menu-wrap .toggler:checked ~ .menu > div
+{
+    transform: scale(1);
+    transition-duration: var(--menu-speed);
+}
+.menu-wrap .toggler:checked ~ .menu > div > div
+{
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.menu-wrap .menu
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-wrap .menu > div
+{
+    background: var(--overlay-color);
+    border-radius: 50%;
+    width: 200vw;
+    height: 200vw;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0);
+    transition: all 0.4s ease;
+}
+.menu-wrap .menu > div > div
+{
+    text-align: center;
+    max-width: 90vw;
+    max-height: 1100vh;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.menu-wrap .menu > div > div > ul >li
+{
+    list-style: none;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 1rem; 
+}
+.menu-wrap .menu > div > div > ul > li> a
+{
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.4s ease;
+}
+       .header 
+       {
+        padding: 60px;
+        text-align: center;
+        background: #8b0000;
+       }
+            img {max-width:100%;
+            }
+       .navbar
+       {
+        display: flex;
+        background-color:#3a3b3c;
+       }
+       .navbar a
+       {
+         color:white;
+         padding: 14px 20px;
+         text-decoration: none;
+         text-align: center;
+       }
+       .navbar a:hover
+       {
+        background-color: #ddd;
+        color:black;
+       }
+       .navlink
+       {
+        display: flex;
+        justify-content: center;
+       }
+       .row 
+       {
+         display: flex;
+         flex-wrap: wrap;
+       }
+        .side 
+        {
+         flex: 15%;
+         background-color:#656565;
+         padding: 10px;
+        }
+        .main
+        {
+         flex: 85%;
+         background-color: #cccccc;
+         padding: 20px;
+        }
+        .footer
+        {
+         background-color: #848884;
+         text-align: center;
+         padding:20px;
+        }
+        #btnScrollToTop
+        {
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            height: 50px;
+            border-radius: 50%;
+            width: 50px;
+            background: transparent;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        #btnScrollToTop:active
+        {
+            background-color: #656565;
+        }
+        @media (max-width: 700px)
+        {
+            .row,
+             .navbar 
+             {
+                flex-direction: column;
+             }
+             .navlink
+             {
+                flex-direction: column;
+             }
+        }
+         /* telefono */
+        @media (max-width: 623px) {
+         html 
+         {
+          font-size: 13px;
+         }
+}
+    </style>
+</head>
+<body>
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler">
+        <div class="hamburger"><div></div></div>
+        <div class="menu">
+           <div>
+               <div>
+                   <ul>
+                       <li>Indice:</li>
+                           <li><a href="https://vocal-madeleine-3cacf6.netlify.app">Introduccion: Rol en vivo</a></li>
+                           <li><a href="#">Capitulo I: Ambientacion</a></li>
+                           <li><a href="#">Capitulo II: Mitologia</a></li>
+                           <li><a href="#">Capitulo III: Las Facciones</a></li>
+                           <li><a href="#">Capitulo IV: Los Clanes</a></li>
+                           <li><a href="#">Capitulo V: Cracion de Personaje</a></li>
+                           <li><a href="#">Capitulo VI: Disciplinas</a></li>
+                           <li><a href="#">Capitulo VII: Trasfondos</a></li>
+                           <li><a href="#">Capitulo VIII: Reglas</a></li>
+                           <li><a href="#">Capitulo IX: Sistemas & Drama</a></li>
+                           <li><a href="#">Apendice: Sendas de Iluminacion</a></li>
+                           <li><a href="#">Apendice: Meritos & Defectos</a></li>
+                   </ul>
+               </div>
+           </div>
+        </div>
+   </div>
+</div>
+    <div class="header">
+            <img src="logo.png" alt="LOGO">
+    </div>
+        <div class="navbar">
+            <div class="navlink">
+            <a href="https://earnest-cannoli-e140fe.netlify.app">Home Page</a>
+            <a href>Que es el juego</a>
+            <a href>Contacto</a>
+            <a href>Noticias y novedades</a>
+         </div>
+        </div>
+    <div class="row">
+            <div class="main">
+                <button id="btnScrollToTop">
+                    <i class="fa-regular fa-circle-up fa-4x"></i>
+                </button>
+            <article>
+                <h2>Introduccion: Rol en vivo</h2>
+                <h3>¿Que es vampiro teatro nocturno?</h3>
+                <p>
+                    El Rol en Vivo es una modalidad
+                    de juego de rol en la que la representación
+                    de los personajes por parte de los
+                    jugadores se realiza en tiempo real y de
+                    forma escenificada, en contraste a los
+                    juegos de rol tradicionales donde los
+                    jugadores se sientan alrededor de una
+                    mesa e interpretan sus personajes
+                    únicamente de forma oral.
+                    Esta es una definición correcta,
+                    pero bastante aburrida que se podría
+                    encontrar en Internet.
+                    ¿Pero qué busca realmente el Rol
+                    en Vivo?
+                    ¿Y qué busca Teatro Nocturno
+                    en cada una de sus partidas?
+                    Las respuestas son múltiples, pero
+                    podríamos comenzar por decir que el
+                    incrementar el estado de inmersión de los
+                    jugadores es una de ellas. Lo ideal es que
+                    los jugadores no actúen sus personajes,
+                    sino que sean sus personajes. Que se
+                    sumerjan en una partida como si lo
+                    hicieran en otro mundo, oscuro e ignoto.
+                    Que puedan vivir de primera mano el
+                    Mundo de Tinieblas como si fueran uno
+                    de sus habitantes. Que puedan sentir el
+                    miedo y la paranoia que sienten los
+                    vampiros cada noche al darse cuenta que
+                    el golpe puede venir de cualquier oscuro
+                    rincón y lo que se juegan es su mismísima
+                    no-vida. Que sientan los abusos de
+                    aquellos vampiros mas antiguos y
+                    poderosos (jugadores o no) y combatan
+                    las ansias de poder de aquellos más abajo
+                    en la cadena alimenticia (aunque éstos
+                    sean jugadores como ellos). Que sientan
+                    la adrenalina al complotar con otros para
+                    lograr un objetivo común. Que sientan la
+                    intensidad de una escena al interpretarla
+                    con otro, sin guiones, sin preparativos, sin
+                    saber cómo terminará todo. Sin saber si
+                    saldrá victorioso o no de cada encuentro...
+                    sin saber si saldrá con vida o no.
+                    Y por sobre todo sintiendo que
+                    construye una historia conjunta. Un relato
+                    común. Una leyenda viviente donde todos
+                    y cada uno de los jugadores
+                    pueden ser protagonistas y reparto,
+                    víctimas y victimarios, héroes y
+                    villanos.Si se atreven a adentrarse en una
+                    de nuestras partidas y llegan a sentir
+                    siquiera un atisbo de lo que describimos,
+                    entonces habremos cumplido con nuestro
+                    cometido y ustedes habrán experimentado
+                    de primera mano lo que significa
+                    realmente Rol en Vivo.
+                </p>
+                <h3>Salvaguardas</h3>
+                <p>
+                    A pesar de la amplia variedad de
+                    juegos de acción en vivo que existen, hay
+                    ciertas reglas comunes entre ellos para
+                    asegurar que el juego es seguro y que todos
+                    los participantes y espectadores pueden
+                    disfrutarlo. 
+                </p>
+                <p>
+                    • No tocar: Todo el combate e
+                    interacción física por lo general se resuelve
+                    mediante las reglas. Los jugadores nunca
+                    deben golpear, agarrar o de alguna forma
+                    tocar a nadie durante el juego - algunos
+                    juegos permiten acciones con tacto
+                    consensuado en momentos específicos, pero
+                    nunca puedes hacer nada malo si no tocas. Es
+                    responsabilidad del Narrador pedir un tiempo
+                    muerto si uno o más jugadores son
+                    excesivamente bulliciosos.
+                </p>
+                    
+                <p>
+                    • Nada de armas: Objetos de
+                    atrezzo como sombreros, vestidos de época,
+                    espadas de goma-espuma o pistolas de
+                    plástico son adecuados para un juego en vivo.
+                    Las armas reales no. No se deberían utilizar
+                    cuchillos, ni espadas ni, por supuesto, ningún
+                    tipo de arma de fuego. Una regla optativa a
+                    tener en cuenta cuando se juega en exteriores
+                    es ni siquiera utilizar estos atrezzos (que a la
+                    distancia pueden parecer reales), sino tarjetas
+                    con leyendas apropiadas como “Pistola” o
+                    “Espada.”
+                </p>
+                    
+                <p>
+                    • Jugar en un lugar limitado:
+                    Los juegos en vivo están pensados para
+                    jugarse en casa o en un lugar delimitado. No
+                    involucres a los espectadores u observadores
+                    casuales en el juego, y asegúrate de que todos
+                    los que se encuentren en el lugar, o que pasen
+                    por él, comprendan exactamente lo que están
+                    haciendo. Aunque ahora el concepto de juego
+                    de acción en vivo es mucho más conocido
+                    que cuando comenzó Vampiro, una partida en
+                    vivo puede parecer sospechosa, inquietante o
+                    incluso aterradora para quienes desconocen lo
+                    que ocurre. Compórtate siempre
+                    educadamente con las personas que no
+                    participan en el juego.
+                </p>
+                   
+                <p>
+                    • Saber cuándo parar: Si el
+                Narrador pide un tiempo muerto o algún otro
+                tipo de pausa en la acción, para
+                inmediatamente. El Narrador sigue siendo el
+                árbitro final de todo lo que ocurre en el juego.
+                De la misma forma, cuando el juego ha
+                terminado por esa noche, aprovecha la
+                oportunidad para quitarte los colmillos y
+                cenar y beber con los demás jugadores para
+                intercambiar batallitas de guerra (y quizás
+                disfrutar presumiendo un poco).
+                </p>
+                
+                <p>
+                    • Sólo es un juego: Un juego de
+                    acción es para divertirse. Si un rival gana, si
+                    un personaje muere, si un plan sale mal, no es
+                    el fin del mundo. A veces a la gente le gusta
+                    reunirse cuando el juego termina y hablar
+                    sobre lo que ha ocurrido, y no hay nada de
+                    malo en eso. Pero llamar a tu compañero de
+                    clan a las cuatro de la mañana para pedirle
+                    ayuda en tu maniobra para conseguir la
+                    Primogenitura es llevar las cosas demasiado
+                    lejos. Recuerda, todos los que están haciendo
+                    esto tienen que divertirse.
+                </p>
+                <p>  
+                    La acción en vivo puede ser una de
+                    las experiencias Narrativas más satisfactorias
+                    e intensas, si se utiliza con madurez y
+                    responsabilidad. Muchas personas han jugado
+                    durante años, y han hecho muchos amigos
+                    para toda la vida interpretando a cabrones no
+                    muertos que se enfrentan unos a otros. ¡Y
+                    aquí estamos para veinte años más de
+                    disfraces, adhesivo dental y derrocamientos
+                    políticos!
+                </p>
+
+            </article>
+            <article>
+                <h2>Capitulo I: Ambientacion</h2>
+                <h3>¿Que es un vampiro?</h3>
+                <p>
+                    En Vampiro, los jugadores asumen
+                    personajes vampiros —los chupasangres
+                    inmortales del género de terror— y guían a
+                    estos personajes a través de un mundo que es
+                    un reflejooscuro del nuestro. Los vampiros de
+                    este juego se parecen a los familiares
+                    monstruos de los mitos, el cine, el folklore y
+                    la ficción. Sin embargo no todas las historias
+                    sobre los vampiros son ciertas.
+                </p>
+                <p>
+                    • Los vampiros son inmortales.
+                    Verdadero. Aunque se les puede matar, no
+                    envejecen ni mueren por causas naturales. No
+                    necesitan comer como los humanos, y no
+                    necesitan respirar.
+                </p>
+                <p>
+                    • Los vampiros son muertos
+                    vivientes y deben alimentarse con la sangre
+                    de los vivos. Verdadero. Un vampiro está
+                    clínicamente muerto y sin embargo piensa,
+                    camina... y mata. Para mantener esta
+                    inmortalidad artificial, el vampiro debe
+                    consumir sangre periódicamente, preferiblemente
+                    sangre humana.
+                </p>
+                <p>
+                    • Quien muere por el mordisco de
+                    un vampiro se convierte en vampiro. Falso.
+                    Si esta afirmación fuera cierta, el mundo
+                    estaría atestado de vampiros. La mayoría de
+                    los humanos que mueren por el ataque de un
+                    vampiro simplemente perecen. Para volver
+                    como un no muerto la víctima debe ser
+                    drenada de sangre y a continuación recibir un
+                    poco de la del vampiro. Este proceso,
+                    llamado el Abrazo, desencadena la
+                    transformación mística de humano en no
+                    muerto.
+                </p>
+                <p>
+                    • Los vampiros son monstruos,
+                    espíritus demoníacos encarnados en
+                    cadáveres. Falso... y verdadero. Los
+                    vampiros no son demonios per se, pero una
+                    combinación de factores los arrastra
+                    inexorablemente a cometer actos perversos.
+                    Al principio el vampiro recién creado piensa
+                    y actúa de forma muy parecida a cuando
+                    estaba vivo. No obstante, el vampiro descubre
+                    pronto su abrumadora sed de sangre, y se da
+                    cuenta de que su existencia depende de
+                    alimentarse de la humanidad.
+                    Aunque al principio se sienta
+                    reticente a matar, al final el vampiro termina
+                    viéndose forzado a cometer asesinato por las
+                    circunstancias o por necesidad... y matar se
+                    hace más fácil con el paso de los años. 
+                </p>
+                <p>
+                    • La luz del sol quema a los
+                    vampiros. Verdadero. Los vampiros deben
+                    evitar la luz del sol, la cual causa graves
+                    heridas... y la muerte. Unos pocos pueden
+                    soportarla pero sólo breves momentos. A la
+                    mayoría de vampiros les resulta muy difícil
+                    permanecer despiertos durante el día, incluso
+                    dentro de lugares cerrados.
+                </p>
+                <p>
+                    • Los vampiros son repelidos por el
+                    ajo y el agua corriente. Falso. Se trata de
+                    meros mitos, y sólo unos pocos vampiros
+                    resultan molestados por estos elementos. 
+                </p>
+                <p>
+                    • Los vampiros son repelidos por
+                    las cruces y otros símbolos sagrados. Esto
+                    por lo general es falso. No obstante, si elportador del símbolo tiene una gran fe en el
+                    poder que representa, un vampiro puede
+                    sufrir efectos perniciosos, pero estos se
+                    deberán al individuo y no al símbolo en
+                    particular.
+                </p>
+                <p>
+                    • Los vampiros mueren si se les
+                    clava una estaca en el corazón. Falso. No
+                    obstante, una estaca de madera (o cualquier
+                    objeto de madera) que atraviese el corazón
+                    paralizará al vampiro hasta que sea extraída.
+                </p>
+                <p>
+                    • Los vampiros tienen la fuerza de
+                    10 hombres, pueden controlar a los lobos y
+                    murciélagos; pueden hipnotizar a los vivos
+                    y curarse hasta de las peores heridas.
+                    Verdadero y falso. El poder de un vampiro se
+                    incrementa con la edad. Por lo general, los
+                    vampiros jóvenes y recién creados son poco
+                    más poderosos que los humanos, pero a
+                    medida que la edad y el conocimiento de los
+                    vampiros aumenta, aprenden a usar su sangre
+                    para activar poderes sobrenaturales secretos,
+                    que los vampiros llaman Disciplinas. Los
+                    poderes de los antiguos a menudo pueden
+                    rivalizar con vampiros de la ficción y los
+                    realmente ancianos, los Matusalenes y
+                    Antediluvianos que han acechado en la noche
+                    durante milenios, a menudo poseen
+                    literalmente poderes de dioses.
+                </p>
+                <p>
+                    • Los vampiros tienen sexo.
+                    Verdadero. Es una buena forma de
+                    alimentarse, pero los placeres carnales no significan mucho para los Vampiros. La
+                    alimentación de los vampiros a través del
+                    mordisco, que llaman “el Beso”, es una
+                    experiencia increíblemente intoxicante y
+                    erótica para los Cainitas y sus víctimas. Para
+                    un vampiro nada puede superar al éxtasis de
+                    alimentarse.
+                </p>
+                <h3>Los vampiros</h3>
+                <p>
+                    Para los vampiros, el paradigma del
+                    paisaje urbano es casi medieval. Las ciudades
+                    son sus hogares y todo lo que no sea una
+                    ciudad representa algún tipo de amenaza.
+                    Fuera de la ciudad se encuentran manadas
+                    salvajes de Lupinos, enormes zonas yermas e
+                    improductivas donde no se puede encontrar
+                    sangre, y el inquietante misterio que es uno
+                    de los elementos endémicos del Mundo de
+                    Tinieblas. La tecnología moderna reduce en
+                    parte esos peligros, pero en la práctica la
+                    mayoría de los Vampiros se encuentran
+                    atrapados en las ciudades, enriqueciendo sus
+                    jaulas con juegos elaborados de prestigio,
+                    status social y venganza.
+                </p>
+                <h3>El Abrazo</h3>
+                <p>
+                    Los vampiros son creados mediante
+                    un proceso llamado el Abrazo. Algunos
+                    clanes de vampiros Abrazan de manera más
+                    informal que otros, pero por lo general casi
+                    nunca se realiza a la ligera. Después de todo,
+                    cualquier nuevo vampiro es un competidor en
+                    potencia por el alimento y el poder. Un
+                    candidato a vampiro a menudo es vigilado
+                    durante semanas o incluso años por un sire
+                    cuidadoso, que ansiosamente evalúa si el
+                    mortal podría convertirse en una buena
+                    adición a la sociedad de los Vampiros.
+                    El Abrazo es similar a la
+                    alimentación vampírica habitual: el vampiro
+                    drena la sangre de su víctima elegida, pero
+                    tras haberla desangrado por completo, le da
+                    un poco de sangre inmortal al futuro vampiro.
+                    Hace falta muy poca sangre, incluso una gota
+                    o dos, para convertir al mortal en un nuevo
+                    vampiro. Este proceso puede llevarse a cabo
+                    incluso sobre un humano muerto, siempre
+                    que el cuerpo todavía esté caliente.
+                    Una vez reciba la sangre del vampiro,
+                    el mortal “despierta” y comienza a beber la
+                    sangre que se le ofrece por sí mismo. Pero
+                    aunque ha sido animado, el mortal sigue
+                    muerto; su corazón no late ni tampoco
+                    respira. Durante la siguiente semana o las dos
+                    siguientes semanas el cuerpo sufre una serie
+                    de transformaciones sutiles, aprendiendo a
+                    utilizar la sangre de su cuerpo y aprende los
+                    poderes especiales de su clan. Ahora es un
+                    vampiro.
+                    Desde el Abrazo nada vuelve a ser lo
+                    mismo para el chiquillo. Ya no es mortal.
+                    Toda la parafernalia de la vida mortal del
+                    chiquillo ya no le sirve. En resumen, ahora el
+                    nuevo vampiro requiere sangre para
+                    alimentarse y rodearse de recipientes de
+                    alimento a los que ama inevitablemente lo
+                    arrastrará a una caída sangrienta. A largo11
+                    plazo, aunque el nuevo vampiro será eterno y
+                    no cambiará con el paso del tiempo, quienes
+                    le rodeen envejecerán y morirán. La mayoría
+                    de los sires consideran que la solución más
+                    fácil es simplemente dar la espalda a la vida
+                    mortal, que ya no tiene nada que ofrecer
+                    salvo tragedia y un recuerdo del estado
+                    condenado de los no muertos
+                </p>
+                <h3>La Caza</h3>
+                <p>
+                    La diferencia fundamental entre
+                    humanos y vampiros se encuentran en su
+                    forma de alimentarse. Los vampiros no
+                    pueden subsistir con comida mortal; sino que
+                    deben sostener sus vidas eternas consumiendo sangre, sangre humana fresca.
+                    Los vampiros adquieren su alimento
+                    de muchas maneras. Algunos cultivan
+                    “rebaños” de mortales dispuestos que gozan
+                    del éxtasis que les proporciona el Beso del
+                    vampiro. Otros se escurren en las casas
+                    durante la noche, alimentándose de humanos
+                    dormidos. Algunos acechan en los lugares de
+                    recreo de los mortales (discotecas, bares y
+                    teatros), seduciendo a los mortales y
+                    estableciendo relaciones ilícitas y disfrazando
+                    sus depredaciones como actos de pasión. Y
+                    también existen otros que toman su alimento
+                    a la más antigua usanza de su especie:
+                    acechando, atacando e incapacitando (o
+                    incluso matando) a los mortales que se
+                    aventuran de noche callejos y descampados
+                    solitarios.
+                </p>
+                <h3>La Bestia</h3>
+                <p>
+                    Dentro de cada vampiro acecha una
+                    criatura hambrienta y feroz que es el opuesto
+                    de la Humanidad. Es la Bestia, y ésta sólo
+                    conoce de instinto y reacciones primarias
+                    sumado un deseo de destrucción. Es el
+                    impulso inevitable de ser lo que es un
+                    vampiro: un depredador que no está sometido
+                    a la voluntad de los hombres y que se oculta
+                    entre ellos. Cuando la Bestia toma el control
+                    del vampiro se dice que entra en un estado de
+                    frenesí, dirigiendo al Cainita en una reacción
+                    básica, ya sea de lucha o de huida.
+                    A largo plazo la Bestia llevará al
+                    Vampiro hacia una senda descendente de
+                    mayor degradación y servidumbre. Una
+                    noche el Vampiro destroza una propiedad,
+                    luego matará con reticencia y después matará
+                    con placer. Cuando la Humanidad haya sido
+                    erosionada y la Bestia tome el control, en ese
+                    Cainita apenas quedará algo de consciencia
+                    racional. Matar, alimentarse y dormir es todo
+                    lo que queda en un vampiro dominado
+                    completamente por su Bestia.
+                </p>
+                <h3>La Aristocracia de los Muertos</h3>
+                <p>
+                    Es cierto que los vampiros son
+                    criaturas poderosas, pero estas criaturas
+                    poderosas han creado jerarquías propias y
+                    ninguna de ellas tiene la prioridad de
+                    “compartir mi poder celosamente acumulado
+                    con una escoria que acaba de recibir el
+                    Abrazo.”
+                    Parece que los antiguos lo controlan
+                    todo. Gobiernan dominios que han poseído
+                    durante décadas, sino siglos. Las jerarquías
+                    sociales, sin importar la secta, se encuentran
+                    ocupadas por vampiros atrincherados que no
+                    subieron a la cima siendo especialmente
+                    generosos. El escalafón más elevado de la
+                    autoridad de los Vampiros en casi cualquier
+                    ciudad es una telaraña de intrigas
+                    dependientes, rivalidades feroces y odios
+                    abiertos que pueden estallar en violencia
+                    física e incluso en la Muerte Definitiva.
+                    Añade a todo esto el hecho de que
+                    esos antiguos atrincherados son maestros de
+                    la manipulación y el engaño, y que muchos
+                    vampiros jóvenes creen, no del todo incorrectamente, que son sus peones.¿De
+                    verdad ese joven Brujah bravucón odia al
+                    ancilla Toreador que se burló de él en una
+                    fiesta? ¿O en realidad ese antiguo Ventrue
+                    animó al chiquillo del chiquillo de su
+                    chiquillo a que invitara al inexperto sire del
+                    Brujah para que presentara a su progenie
+                    demasiado pronto en la sociedad de los Vás12
+                    tagos esperando que el Toreador hiciera su movimiento?
+                </p>
+                <h3>Edad</h3>
+                <p>
+                    Una de las formas mediante la que
+                    los Vampiros determinan el orden social
+                    vigente es mediante una combinación de edad
+                    y Generación (un indicativo de la lejanía a la
+                    que se encuentra el vampiro de Caín, el
+                    primer vampiro). Los Cainitas recién
+                    Abrazados deben probarse a sí mismos ante
+                    los vampiros más viejos y establecidos para
+                    conseguir cualquier tipo de reconocimiento o
+                    posición. Existe cierto grado de movilidad,
+                    pero un vampiro consigue respeto principalmente con el paso del tiempo y el desgaste de
+                    sus enemigos.
+                    Chiquillo: Un chiquillo es un
+                    vampiro recién Abrazado que todavía no ha
+                    sido presentado en la sociedad de los
+                    Vampiros y por lo tanto no se ha emancipado
+                    formalmente de la tutela de su sire. Por este
+                    motivo un sire es responsable de las acciones
+                    de su chiquillo hasta que parece capaz de
+                    desenvolverse en la cultura Cainita por sí
+                    mismo. Algunos clanes retienen a sus
+                    chiquillos durante años o décadas, como los
+                    Tremere, mientras que otros, como muchos
+                    Brujah o Gangrel, consideran que en cuanto
+                    te has convertido en vampiro, ya puedes
+                    valerte por ti. Los vampiros del Sabbat, que a
+                    veces llaman a sus chiquillos Abrazados
+                    apresuradamente “cabezas de pala” debido a
+                    sus extraños rituales de Abrazo, normalmente
+                    son mucho más pragmáticos: si el chiquillo
+                    sobrevive y hace algo que valga la pena, deja
+                    de ser un cabeza de pala.
+                    Neonato: Un neonato es un joven
+                    vampiro que no ha sido Vampiro durante
+                    algún tiempo. La principal diferencia entre un
+                    neonato y un chiquillo es que el neonato se ha
+                    emancipado de su sire y por lo tanto se le
+                    considera “adulto” en la sociedad vampírica.
+                    La línea entre neonato y chiquillo es
+                    increíblemente subjetiva, pero por lo normal
+                    cuando la sociedad de los Vampiros deja de
+                    considerar a un vampiro como un apéndice de
+                    su sire y a valorarlo más por sus propios
+                    méritos y acciones, entonces se ha convertido
+                    en un neonato.
+                    Ancilla: Los Vampiros que tienen
+                    unas pocas décadas o siglos a la espalda por
+                    lo general caen en la categoría amplia y
+                    subjetiva conocida como los ancillae. Han
+                    pagado sus deudas, comprenden –en gran
+                    parte– cómo funciona la sociedad de los
+                    Vampiros y posiblemente hayan conseguido
+                    algo. Ancilla es la posición entre neonato y
+                    antiguo, lo que implica cierto nivel de logros
+                    en lo que la sociedad local de los Vampiros
+                    considera apropiado. Por supuesto, lo que se
+                    considera un “logro” puede variar
+                    enormemente de una secta a otra. Un ancilla
+                    de la Camarilla será considerado blando y
+                    superficial por el Sabbat, mientras que un
+                    ancilla del Sabbat posiblemente sería
+                    considerado un maníaco rabioso desde el
+                    punto de vista de la Camarilla.
+                    Antiguo: Lo que se considera un
+                    “antiguo” es igualmente subjetivo, pero por
+                    lo general corresponde a una distinción
+                    aproximada de edad de entre 200 a 1000 años
+                    como Vampiro, con posesiones de dominio
+                    apreciables y una gran variedad de otras
+                    herramientas que aportar a la Yihad.
+                    Habitualmente, los antiguos de Europa son
+                    mucho más viejos que los del otro lado del
+                    Océano Atlántico. Normalmente los antiguos
+                    son los vampiros activos más viejos en la
+                    sociedad de los no muertos.
+                    Matusalén: Cuando un vampiro
+                    alcanza una edad en particular, en algún
+                    momento entre los 1000 y los 2000 años
+                    como no muerto, de forma invariable sufre un
+                    profundo cambio. Durante mucho tiempo se
+                    ha debatido si se trata de un cambio místico o
+                    biológico, pero en cualquier caso, cuando un
+                    vampiro alcanza esta edad, el peso de los
+                    milenios cae sobre él, así como una paranoia
+                    creciente. Los que son débiles no sobreviven
+                    hasta esta edad, sólo los vampiros más
+                    perseverantes e indómitos alcanzan la
+                    posición de Matusalén.
+                    Para poder protegerse, los
+                    Matusalenes se retiran del mundo. La lucha
+                    constante contra los jóvenes que buscan
+                    poder mediante la sangre de sus antiguos se
+                    hace demasiado cansada y finalmente uno de
+                    los cachorros hambrientos tendrá un golpe de
+                    suerte. Por este motivo la única opción es
+                    retirarse por completo de la sociedad y entrar
+                    en letargo. Algunos Matusalenes siguen
+                    participando en las luchas de poder de la
+                    Yihad de los Vampiros, pero lo hacen desde
+                    una posición de completo anonimato. Sin
+                    embargo, otros siguen luchando desde el frío13
+                    sueño del letargo, moviendo a sus peones con
+                    órdenes mentales, visiones en sueños o siglos
+                    de condicionamiento. El miedo a la Yihad, la
+                    inquietud de que ningún Vampiro puede
+                    actuar realmente libre, procede del terror
+                    inevitable provocado por el terrible potencial
+                    de los Matusalenes.
+                    Antediluviano: Literalmente
+                    “anterior al Diluvio”, se cree que los
+                    Antediluvianos son los vampiros de la Tercera Generación que descienden de los
+                    primeros chiquillos de Caín. Se rumorea que
+                    son los últimos vampiros “con dominio sobre
+                    la vida y la muerte”, pero casi con seguridad
+                    se encuentran en el sueño de un letargo
+                    milenario suponiendo que sigan existiendo. Si
+                    estos monstruos bíblicos siguen habitando
+                    sobre la tierra posiblemente lo único en que
+                    parezcan humanos sea su forma física. Han
+                    sido vampiros durante tanto tiempo que sus
+                    impulsos y deseos son completamente
+                    extraños para la sensibilidad humana, e
+                    incluso para los vampiros que han sido
+                    Vampiros durante “sólo” mil años o menos.
+                    Algunas teorías de los Vampiros profetizan
+                    que los Antediluvianos se alzarán de su sueño
+                    inquieto y devorarán a sus chiquillos
+                    desprevenidos durante un Apocalipsis
+                    conocido como Gehena. Los creyentes
+                    radicales, incluso suicidas, de estas profecías
+                    defienden la destrucción de los monstruos
+                    dormidos allí donde se encuentren, si es que
+                    pueden ser descubiertos y destruidos.
+                </p>
+                <h3>El Gotico Punk</h3>
+                <p>
+                    El Mundo de Tinieblas, el mundo donde
+                    se juegan las partidas, es un reflejo más
+                    oscuro y siniestro del mundo real, en el
+                    que lo sobrenatural coexiste con lo
+                    mundano oculto a simple vista. Donde
+                    una sociedad banal y decadente pierde las
+                    esperanzas y se hunde en el abismo sin
+                    saber de los horrores que los rodean. Este
+                    mundo conspirativo y oscuro es
+                    denominado Gótico-Punk. Gótico por la
+                    oscuridad que cae sobre sus habitantes y
+                    por su estética... Punk por su actitud
+                    contestataria y rebelde, pues reinan el
+                    conflicto y el caos en las calles.
+                </p>
+            </div>
+        </div>
+    <div class="footer">
+        <address>
+            " Autor:"
+            <br>
+            "Email:"
+        </address>
+    </div>
+    <script>
+        const btnScrollToTop =document.querySelector("#btnScrollToTop");
+
+        btnScrollToTop.addEventListener("click", function (){
+            
+            window.scrollTo({
+                top:0,
+                left:0,
+                behavior:"smooth"
+            });
+        });
+    </script>
+
+ </body>
+</html>
