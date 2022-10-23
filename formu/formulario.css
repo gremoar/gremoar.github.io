@@ -100,3 +100,25 @@ width: 90%;
     border: 0.1px solid;
     border-color: #fe5f55;
 }
+.navbar
+{
+display: flex;
+background-color:#6D5658;
+}
+.navbar a
+{
+ color:#C8C6B1;
+ padding: 14px 20px;
+ text-decoration: none;
+ text-align: center;
+}
+.navbar a:hover
+{
+background-color: #EABF95;
+color:#4B3F29;
+}
+.navlink
+{
+display: flex;
+justify-content: center;
+}
