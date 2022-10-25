@@ -6,37 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="formulario.css">
 </head>
-<body>  
+<body>
     <div class="container">
         <div class="header">
-            <h2>Contactanos</h2>
+            <h2>Crear Cuenta</h2>
         </div>
-        <form id="formulario" action="procesar.php" method="">
-
+        <form id="formulario" action="https://formspree.io/f/mgeqnoew" method="POST">
             <div class="form-control">
-                <label for="usuario">Nombre</label>
-                <input id="usuario" type="text">
-                <p></p>                
+                <label for="name">Nombre<span>*</span></label>
+                <input name="name" required type="text" id="name">
             </div>
-
-            <div class="form-control">
-                <label for="usuario_2">Apellido</label>
-                <input id="usuario_2" type="text">
-                <p></p>                
+                <div class="form-control">
+                <label for="lastName">Apellido<span>*</span></label>
+                <input name="lastName" required type="text" id="lastName">
             </div>
-
-            <div class="form-control">
-                <label for="email">E-mail</label>
-                <input id="email" type="email">
-                <p></p>                
+                <div class="form-control">
+                <label for="email">Correo electrónico <span>*</span></label>
+                <input type="email" name="email" placeholder="juan@gmail.com" required>
             </div>
-
-            <div class="form-control">
-                <label for="tel">Telefono</label>
-                <input id="tel" type="telefono">
-                <p></p>                
-            </div>
-            <button>Enviar</button>            
+                <div class="form-control">
+                <label for="phone">Telefono</label>
+                <input name="phone" required type="text">
+                <p></p> 
+            </div>              
+            <button type="submit" class="btn primary full">enviar</button>
         </form>
     </div>
     <script src="app.js"></script>
