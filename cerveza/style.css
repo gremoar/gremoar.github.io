@@ -192,17 +192,17 @@ main
 
 .Historia
 {
-    text-align: center;
+    
     font-family: 'Grave';
     padding-left: 20%;
     padding-right: 20%;
     padding-bottom: 2%;
     padding-top: 1%;
+    justify-content: left;
 }
 
 #historia
 {
-    text-decoration: underline;
     padding-top: 5%;
     padding-bottom: 1%;
     font-family: 'Barlow Semi Condensed', sans-serif;
@@ -211,7 +211,6 @@ main
 #bienvenidos
 {
     text-align: center;
-    text-decoration: underline;
     font-size: 500%;
     font-family: 'Barlow Semi Condensed', sans-serif;
     
@@ -226,7 +225,7 @@ main
 #compañias
 {
     text-align: center;
-    text-decoration: underline;
+   
     padding-top: 5%;
     font-family: 'Barlow Semi Condensed', sans-serif;
 }
@@ -257,12 +256,19 @@ main
 {
     text-align: center;
 }
-footer
+.contacto
 {
- background-color: #353535;
+  background-color: #353535;
  padding-top: 2%;
  padding-bottom: 2%;
  color: #aaa;
+text-align: center;
+}
+footer
+{
+  background-color: #461e1e;
+ padding-top: 1%;
+ padding-bottom: 1%;
+ color: #aaa;
  text-align: center;
-
 }
