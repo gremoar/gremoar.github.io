@@ -22,7 +22,8 @@ main
  .contenedor
  {
   width: 1300px;
-    margin: auto;
+  margin: auto;
+  
  }
  
  .carta_padre{
@@ -270,10 +271,6 @@ figure
   text-align: center;
 }
 
-
-
-
-
 .contacto
 {
   background-color: #353535;
@@ -297,3 +294,4 @@ footer
   text-decoration: none;
 
 }
+
